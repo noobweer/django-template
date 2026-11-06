@@ -1,4 +1,4 @@
-.PHONY: help install hooks dev migrate makemigrations createsuperuser test lint format check up down logs clean
+.PHONY: help install hooks dev migrate makemigrations createsuperuser test lint format check up down prod-up prod-down logs clean
 
 help: ## Show this help message
 	@echo "Available commands:"
@@ -38,14 +38,20 @@ check: ## Run lint, format check and tests
 	uv run ruff format --check .
 	uv run pytest
 
-up: ## Start Docker Compose (PostgreSQL & Granian API)
-	docker compose up --build -d
+up: ## Start development Docker Compose (target: dev)
+	docker compose -f docker-compose.dev.yml up --build -d
 
-down: ## Stop Docker Compose
-	docker compose down
+down: ## Stop development Docker Compose
+	docker compose -f docker-compose.dev.yml down
+
+prod-up: ## Start production Docker Compose (target: prod)
+	docker compose -f docker-compose.prod.yml up --build -d
+
+prod-down: ## Stop production Docker Compose
+	docker compose -f docker-compose.prod.yml down
 
 logs: ## View API container logs
-	docker compose logs -f api
+	docker compose -f docker-compose.dev.yml logs -f api
 
 clean: ## Clean cache and temporary files
 	find . -type d -name "__pycache__" -exec rm -rf {} +

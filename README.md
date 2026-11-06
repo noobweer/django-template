@@ -14,11 +14,17 @@ make migrate
 make dev
 ```
 
-Or with Docker:
+Or with Docker (Development):
 
 ```bash
 cp .env.example .env
 make up
+```
+
+For Production:
+
+```bash
+make prod-up
 ```
 
 ## Commands
@@ -32,7 +38,9 @@ make up
 - `make format` - Format code and fix ruff issues
 - `make check` - Run ruff check, format check, and pytest
 - `make hooks` - Install Lefthook git hooks
-- `make up` - Start Docker Compose services
-- `make down` - Stop Docker Compose services
-- `make logs` - View API container logs
+- `make up` - Start dev Docker Compose (hot reload, dev target)
+- `make down` - Stop dev Docker Compose
+- `make prod-up` - Start prod Docker Compose (multi-worker, prod target)
+- `make prod-down` - Stop prod Docker Compose
+- `make logs` - View dev API container logs
 - `make clean` - Remove pycache and pytest cache

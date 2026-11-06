@@ -29,7 +29,7 @@
 
 - ASGI Server: Granian with `--interface asginl` pointing to `config.asgi:application`.
 - Database: PostgreSQL 16 with `psycopg` (v3). Use SQLite only for local offline development via `USE_SQLITE=True`.
-- Containers: Multi-stage Dockerfile based on `uv` with non-root user execution.
+- Containers: Multi-stage Dockerfile with `dev` and `prod` targets. Compose configs separated into `docker-compose.dev.yml` and `docker-compose.prod.yml`.
 
 ## 6. Verification Checklist
 
