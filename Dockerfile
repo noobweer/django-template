@@ -31,8 +31,7 @@ RUN chmod +x /entrypoint.sh
 FROM base AS dev
 
 COPY pyproject.toml uv.lock ./
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project
+RUN uv sync --frozen --no-install-project
 
 COPY --chown=appuser:appgroup . .
 
@@ -49,8 +48,7 @@ CMD ["granian", "--interface", "asginl", "config.asgi:application", "--host", "0
 FROM base AS prod-builder
 
 COPY pyproject.toml uv.lock ./
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev --no-install-project
+RUN uv sync --frozen --no-dev --no-install-project
 
 # ==========================================
 # Stage 4: Production target (minimal runtime)
